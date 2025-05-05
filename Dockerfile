@@ -1,15 +1,19 @@
-# Use Node LTS
-FROM node:22
+# Use Alpine as base
+FROM alpine:latest
+
+# Install Node.js and npm
+RUN apk add --no-cache nodejs npm
 
 # Set working directory
 WORKDIR /app
 
-# Copy files
+# Copy dependencies and install
 COPY package*.json ./
 RUN npm install
+
+# Copy the rest of the application
 COPY . .
 
-# Expose port and run app
+# Expose port and start the app
 EXPOSE 3000
 CMD ["npm", "start"]
-
