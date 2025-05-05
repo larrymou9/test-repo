@@ -21,7 +21,9 @@ spec:
   - name: platforms
     type: string
     description: Target platforms for multi-arch build
-    value: linux/amd64,linux/arm64
+    value:
+      - linux/amd64
+      - linux/arm64
   - name: git-url
     value: '{{source_url}}'
   - name: revision
@@ -213,7 +215,7 @@ spec:
       - name: IMAGE_EXPIRES_AFTER
         value: $(params.image-expires-after)
       - name: PLATFORMS
-        value: linux/amd64,linux/arm64
+        value: [linux/amd64,linux/arm64]
       - name: COMMIT_SHA
         value: $(tasks.clone-repository.results.commit)
       - name: BUILD_ARGS
