@@ -19,9 +19,11 @@ metadata:
 spec:
   params:
   - name: platforms
-    type: string
+    type: array
     description: Target platforms for multi-arch build
-    value: linux/amd64,linux/arm64
+    value:
+      - linux/amd64
+      - linux/arm64
   - name: git-url
     value: '{{source_url}}'
   - name: revision
@@ -213,7 +215,8 @@ spec:
       - name: IMAGE_EXPIRES_AFTER
         value: $(params.image-expires-after)
       - name: PLATFORMS
-        value: $(params.platforms)
+        value:
+          - $(params.platforms[*])
       - name: COMMIT_SHA
         value: $(tasks.clone-repository.results.commit)
       - name: BUILD_ARGS
@@ -231,13 +234,12 @@ spec:
       - prefetch-dependencies
       taskRef:
         params:
-        - name: name
-          value: buildah-oci-ta
-        - name: bundle
-          value: quay.io/konflux-ci/tekton-catalog/task-buildah-oci-ta:0.4@sha256:0d6b3c8a075bbf10ec4b7ee9b9312db7c4d91846396d6f16ddc1277549713cff
-        - name: kind
-          value: task
-        resolver: bundles
+          - name: url
+            value: https://github.com/konflux-ci/build-definitions
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: task/buildah-remote-oci-ta/0.4/buildah-remote-oci-ta.yaml
       when:
       - input: $(tasks.init.results.build)
         operator: in
