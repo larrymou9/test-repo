@@ -213,7 +213,7 @@ spec:
       - name: IMAGE_EXPIRES_AFTER
         value: $(params.image-expires-after)
       - name: PLATFORMS
-        value: $(params.platforms)
+        value: linux/amd64,linux/arm64
       - name: COMMIT_SHA
         value: $(tasks.clone-repository.results.commit)
       - name: BUILD_ARGS
