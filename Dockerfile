@@ -1,13 +1,19 @@
-FROM registry.access.redhat.com/ubi9/nodejs-18
+# Use Alpine as base
+FROM alpine:latest
 
+# Install Node.js and npm
+RUN apk add --no-cache nodejs npm
+
+# Set working directory
 WORKDIR /app
 
+# Copy dependencies and install
 COPY package*.json ./
-RUN chown -R 1001:0 /app && \
-    npm install
+RUN npm install
 
+# Copy the rest of the application
 COPY . .
 
+# Expose port and start the app
 EXPOSE 3000
-USER 1001
 CMD ["npm", "start"]
