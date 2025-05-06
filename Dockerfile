@@ -1,5 +1,6 @@
 # Use Alpine as base
-FROM alpine:latest
+# FROM alpine:latest
+FROM quay.io/alpine/alpine:latest
 
 # Install Node.js and npm
 RUN apk add --no-cache nodejs npm
