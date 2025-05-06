@@ -1,9 +1,8 @@
-# Use Alpine as base
-# FROM alpine:latest
+# Use Red Hat UBI 9 as base image
 FROM registry.access.redhat.com/ubi9/ubi
 
 # Install Node.js and npm
-RUN apk add --no-cache nodejs npm
+RUN microdnf install -y nodejs npm && microdnf clean all
 
 # Set working directory
 WORKDIR /app
